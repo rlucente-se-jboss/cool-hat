@@ -39,17 +39,17 @@ def hat(scrX=320, nSlices=64):
         z = zSlice * hatRad                    # -hatRad to hatRad.
         xl = round(np.sqrt(hatRad**2 - z**2))  # Endpoints of hat, this slice.
         for x in range(-xl, xl+1):             # Step through points on slice.
-            # Hat-like surface of revolution.
-            xt = xf * np.sqrt(x**2 + z**2)     # Dist along hat's sinusoid.
-            y = (np.sin(xt) + 0.4*np.sin(xt*3)) * hatHgt # Pt on surf of hat.
-            # Stagger layer for fake 3d.
-            x1 = x + stagger*zSlice + scrX/2
-            y1 = y - stagger*zSlice + scrY/2
-            y1 = scrY - y1 # Flip vertically.
-            r = np.sqrt(x*x + z*z)
+            r = np.sqrt(x*x + z*z)             # Add a band to the hat
             if r < 98 or r > 106:
+                # Hat-like surface of revolution.
+                xt = xf * np.sqrt(x**2 + z**2)     # Dist along hat's sinusoid.
+                y = (np.sin(xt) + 0.4*np.sin(xt*3)) * hatHgt # Pt on hat.
+                # Stagger layer for fake 3d.
+                x1 = x + stagger*zSlice + scrX/2
+                y1 = y - stagger*zSlice + scrY/2
+                y1 = scrY - y1 # Flip vertically.
                 w.point((x1, y1), fill=fg)
-                w.line([(x1, y1+1), (x1, scrY-1)], fill=bg) # Erase previous layer.
+                w.line([(x1, y1+1), (x1, scrY-1)], fill=bg) # Erase prev layer.
     img.save('hat.png')
     img.show()
 
