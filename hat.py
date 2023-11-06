@@ -11,6 +11,8 @@
 #
 # Mike Markowski, mike.ab3ap@gmail.com
 # April 2022
+#
+# Modified November 2023 to simply add a band to the hat.
 
 from PIL import Image, ImageDraw
 import numpy as np
