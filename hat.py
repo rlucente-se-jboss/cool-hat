@@ -34,6 +34,9 @@ def hat(scrX=320, nSlices=64):
     stagger = n0/x0 * scrX     # Scale layer stagger for fake 3d.
     xf      = a0 / hatRad      # Radians per vertical point on hat.
 
+    bandLow  =  98 * scrX/x0
+    bandHigh = 106 * scrX/x0
+
     # Make the hat!
     img = Image.new('RGB', (scrX, scrY))
     w = ImageDraw.Draw(img)
@@ -42,7 +45,7 @@ def hat(scrX=320, nSlices=64):
         xl = round(np.sqrt(hatRad**2 - z**2))  # Endpoints of hat, this slice.
         for x in range(-xl, xl+1):             # Step through points on slice.
             r = np.sqrt(x*x + z*z)             # Add a band to the hat
-            if r < 98 or r > 106:
+            if r < bandLow or r > bandHigh:
                 # Hat-like surface of revolution.
                 xt = xf * np.sqrt(x**2 + z**2)     # Dist along hat's sinusoid.
                 y = (np.sin(xt) + 0.4*np.sin(xt*3)) * hatHgt # Pt on hat.
